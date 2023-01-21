@@ -1,8 +1,8 @@
-import { STRING, Model, INTEGER } from 'sequelize';
+import { STRING, Model } from 'sequelize';
 import db from '.';
 
 class User extends Model {
-  declare id: number;
+  // declare id: number;
   declare username: string;
   declare role: string;
   declare email: string;
@@ -10,7 +10,7 @@ class User extends Model {
 }
 
 User.init({
-  id: INTEGER,
+  // id: INTEGER,
   username: STRING,
   role: STRING,
   email: STRING,
