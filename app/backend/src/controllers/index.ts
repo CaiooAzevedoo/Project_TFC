@@ -1,3 +1,5 @@
 import userController from './user.controller';
 
-export default userController;
+export {
+  // eslint-disable-next-line import/prefer-default-export
+  userController };

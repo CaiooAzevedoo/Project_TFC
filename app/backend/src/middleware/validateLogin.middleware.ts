@@ -1,23 +1,23 @@
 import { NextFunction, Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
-import userService from '../services/User.service';
+import { userService } from '../services';
 // import userController from '../controllers';
-import utilsJwt from '../Utils/jwt';
+// import utilsJwt from '../Utils/jwt';
 
-const validaLogin = async (req:Request, res: Response) => {
-  const authorization = req.header('authorization');
+// const validaLogin = async (req:Request, res: Response) => {
+//   const authorization = req.header('authorization');
 
-  const email = utilsJwt.validaToken(authorization as string);
-  const user = await userService.getUser('email', email);
+//   const email = utilsJwt.validaToken(authorization as string) as string;
+//   const user = await userService.getUser('email', email);
 
-  let role = '';
+//   let role = '';
 
-  if (user) role = user.role;
+//   if (user) role = user.role;
 
-  res.status(200).json({ role });
-};
+//   res.status(200).json({ role });
+// };
 
-const validaFiedls = (req: Request, res: Response, next: NextFunction) => {
+const validaFields = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ message: 'All fields must be filled' });
@@ -34,10 +34,8 @@ const validaAcess = async (req: Request, res: Response, next: NextFunction) => {
   return next();
 };
 
-const loginMid = {
-  validaLogin,
-  validaFiedls,
+export = {
+  // validaLogin,
+  validaFields,
   validaAcess,
 };
-
-export default loginMid;

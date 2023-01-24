@@ -1,5 +1,6 @@
 import userService from './User.service';
 
-export default {
+export {
+  // eslint-disable-next-line import/prefer-default-export
   userService,
 };
