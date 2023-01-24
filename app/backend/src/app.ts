@@ -10,7 +10,7 @@ class App {
 
     this.config();
 
-    this.app.post('/login', loginMid.validaFiedls, userController.loginIn);
+    this.app.post('/login', loginMid.validaAcess, loginMid.validaFiedls, userController.loginIn);
     this.app.get('/login/validates', loginMid.validaLogin);
 
     // Não remover essa rota
