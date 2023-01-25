@@ -1,4 +1,4 @@
-import * as loginMiddleware from './validateLogin.middleware';
+import loginMiddleware from './validateLogin.middleware';
 
 export default {
   loginMiddleware };
