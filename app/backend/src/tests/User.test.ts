@@ -2,34 +2,67 @@ import * as sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
-import { app } from '../app';
+import { App } from '../app';
+import { json } from 'sequelize';
 // import User from '../database/models/Users';
-// import { Response } from 'superagent';
+import { Response } from 'superagent';
+import User from '../database/models/Users';
+import utilsJwt from '../Utils/jwt.util';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
+const { app } = new App()
+
+// dados dos testes
+const mockUserLogin = {
+  email: "admin@admin.com",
+  password: "secret_admin"
+}
+
+const mockUserValidate = {
+    role: 'admin',
+}
 
 describe('Acess', () => {
-  // let chaiHttpResponse: Response;
+  let chaiHttpResponse: Response;
+
   beforeEach(sinon.restore);
 
-  // dados dos testes
-  const mockUserLogin = {
-    email: "admin@admin.com",
-    password: "secret_admin"
-  }
-
-  it('If token\'s returned', async () => {
-    const res = await chai
+  it('If token is returned', async () => {
+    chaiHttpResponse = await chai
       .request(app)
       .post('/login').send(mockUserLogin)
 
-    expect(res.status).to.equal(200)
+    expect(chaiHttpResponse.status).to.be.eq(200)
   });
 
-  // it('Seu sub-teste', () => {
-  //   expect(false).to.be.eq(true);
-  // });
 });
+
+describe('login/validate', () => {
+  let chaiHttpResponse: Response;
+
+  it('Check Validate', async () => {
+    
+    before(async () => {
+      sinon
+        .stub(User, 'findOne')
+        .resolves(mockUserValidate as User);
+    });
+
+    it('Expect which role is returned', async () => {
+      chaiHttpResponse = await chai
+      .request(app)
+      .get('/login/validate')
+      expect(chaiHttpResponse.status).to.be.eq(200);
+      expect(chaiHttpResponse.body).to.haveOwnProperty(mockUserValidate.role);
+    });
+  })
+
+  describe('Validate login erros', () => {
+    it('Validate fields message', async () => {
+      
+    }) 
+  })
+})

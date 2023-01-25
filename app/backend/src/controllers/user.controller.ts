@@ -25,15 +25,15 @@ const validaLogin = async (req: Request, res: Response) => {
   res.status(200).json({ role });
 };
 
-const userEmail = async (req: Request, res: Response) => {
-  const { email } = req.body;
-  const userByEmail = await userService.getUser('email', email);
-  return res.status(200).json(userByEmail);
-};
+// const userEmail = async (req: Request, res: Response) => {
+//   const { email } = req.body;
+//   const userByEmail = await userService.getUser('email', email);
+//   return res.status(200).json(userByEmail);
+// };
 
 const userController = {
   loginIn,
-  userEmail,
+  // userEmail,
   validaLogin,
 };
 
