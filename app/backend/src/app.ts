@@ -1,6 +1,6 @@
 import * as express from 'express';
-import { userController } from './controllers';
-import { loginMiddleware } from './middleware';
+import userController from './controllers/user.controller';
+import loginMiddleware from './middleware/validateLogin.middleware';
 
 class App {
   public app: express.Express;

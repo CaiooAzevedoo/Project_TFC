@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
-import { userService } from '../services';
+import userService from '../services/User.service';
 // import userController from '../controllers';
 // import utilsJwt from '../Utils/jwt';
 
@@ -34,8 +34,9 @@ const validaAcess = async (req: Request, res: Response, next: NextFunction) => {
   return next();
 };
 
-export = {
-  // validaLogin,
+const loginMiddleware = {
   validaFields,
   validaAcess,
 };
+
+export default loginMiddleware;

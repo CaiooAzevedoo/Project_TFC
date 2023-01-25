@@ -1,5 +1,4 @@
-import loginMiddleware = require('./validateLogin.middleware');
+import * as loginMiddleware from './validateLogin.middleware';
 
-export {
-  // eslint-disable-next-line import/prefer-default-export
+export default {
   loginMiddleware };
