@@ -1,5 +1,7 @@
 import userService from './User.service';
+import teamService from './Team.service';
 
-export default {
+export {
   userService,
+  teamService,
 };

@@ -8,7 +8,9 @@ class Team extends Model {
 }
 
 Team.init({
-  id: INTEGER,
+  id: {
+    primaryKey: true,
+    type: INTEGER },
   teamName: STRING,
 }, {
   underscored: true,

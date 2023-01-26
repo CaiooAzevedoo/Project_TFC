@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { teamsController } from './controllers';
 import userController from './controllers/user.controller';
 import loginMiddleware from './middleware/validateLogin.middleware';
 
@@ -17,6 +18,7 @@ class App {
       userController.loginIn,
     );
     this.app.get('/login/validate', userController.validaLogin);
+    this.app.get('/teams', teamsController.allTeams);
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));

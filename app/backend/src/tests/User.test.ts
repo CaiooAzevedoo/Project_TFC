@@ -3,11 +3,8 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import { App } from '../app';
-import { json } from 'sequelize';
-// import User from '../database/models/Users';
 import { Response } from 'superagent';
 import User from '../database/models/Users';
-import utilsJwt from '../Utils/jwt.util';
 
 chai.use(chaiHttp);
 
