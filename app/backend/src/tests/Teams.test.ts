@@ -8,8 +8,8 @@ import { Response } from 'superagent';
 import Teams from '../database/models/Teams'
 
 // @ts-ignore
-import { after, before } from 'node:test';
-// import Team from '../database/models/Teams';
+// import { before } from 'node:test';
+
 
 
 chai.use(chaiHttp);
@@ -32,23 +32,14 @@ const mockAllTeams = [
     teamName: "Botafogo"
   }]
 
-describe('Teams', () => {
+describe('Teams all Teams', () => {
   let chaiHttpResponse: Response;
   
   before(async () => {
     sinon
       .stub(Teams, 'findAll')
       .resolves(mockAllTeams as Teams[]);
-
-    sinon
-    .stub(Teams,'findOne')
-    .resolves(mockAllTeams[1] as Teams)
   });
-
-  after(() => {
-    (Teams.findAll as sinon.SinonStub).restore();
-    (Teams.findOne as sinon.SinonStub).restore();
-  })
 
   it('If all teams has returned', async () => {
     chaiHttpResponse = await chai
@@ -58,12 +49,24 @@ describe('Teams', () => {
       expect(chaiHttpResponse.body).to.be.eq(mockAllTeams)
   })
 
+})
+
+describe('Teams by id', () => {
+  let chaiHttpResponse: Response;
+  
+  before(async () => {
+
+    sinon
+    .stub(Teams,'findOne')
+    .resolves(mockAllTeams[0] as Teams)
+  });
+
   it('If a single team has returned', async () => {
     chaiHttpResponse = await chai 
     .request(app)
     .get('/teams/1');
     expect(chaiHttpResponse.status).to.be.eq(200);
-    expect(chaiHttpResponse.body).to.be.eq(mockAllTeams)
+    expect(chaiHttpResponse.body).to.be.eq(mockAllTeams[0])
   })
 
 })

@@ -6,6 +6,9 @@ import { App } from '../app';
 import { Response } from 'superagent';
 import User from '../database/models/Users';
 
+// @ts-ignore
+// import { before } from 'node:test';
+
 chai.use(chaiHttp);
 
 const { expect } = chai;
