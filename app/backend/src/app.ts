@@ -19,6 +19,7 @@ class App {
     );
     this.app.get('/login/validate', userController.validaLogin);
     this.app.get('/teams', teamsController.allTeams);
+    this.app.get('/teams:id', teamsController.teamById);
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));

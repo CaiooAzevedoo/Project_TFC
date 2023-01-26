@@ -7,8 +7,16 @@ const allTeams = async (req: Request, res: Response) => {
   res.status(200).json(teams);
 };
 
+const teamById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const team = await teamService.teamById(Number(id));
+
+  res.status(200).json(team);
+};
+
 const teamsController = {
   allTeams,
+  teamById,
 };
 
 export default teamsController;
