@@ -2,9 +2,17 @@ import { Request, Response } from 'express';
 import { matchServices } from '../services';
 
 const allMatchs = async (req: Request, res: Response) => {
-  const matchs = matchServices.allMatchs();
+  const { inProgress } = req.query;
 
-  res.status(200).json(matchs);
+  let matchs;
+  if (!inProgress) {
+    matchs = await matchServices.allMatchs();
+  } else {
+    const inP = inProgress === 'true';
+    matchs = await matchServices.inProgressMatchs(inP);
+  }
+
+  return res.status(200).json(matchs);
 };
 
 const matchsControllers = {

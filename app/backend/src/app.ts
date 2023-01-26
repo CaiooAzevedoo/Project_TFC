@@ -1,6 +1,5 @@
 import * as express from 'express';
-import { teamsController } from './controllers';
-import matchsControllers from './controllers/match.controller';
+import { teamsController, matchsControllers } from './controllers';
 import userController from './controllers/user.controller';
 import loginMiddleware from './middleware/validateLogin.middleware';
 
