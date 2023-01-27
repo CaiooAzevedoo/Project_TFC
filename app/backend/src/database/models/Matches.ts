@@ -2,23 +2,23 @@ import { BOOLEAN, INTEGER, Model } from 'sequelize';
 import db from '.';
 
 class Match extends Model {
-  declare homeTeam: number;
-  declare awayTeam: number;
+  declare homeTeamId: number;
+  declare awayTeamId: number;
   declare homeTeamGoals: number;
   declare awayTeamGoals: number;
   declare inProgress: boolean;
 }
 
 Match.init({
-  homeTeam: INTEGER,
-  awayTeam: INTEGER,
+  homeTeamId: INTEGER,
+  awayTeamId: INTEGER,
   homeTeamGoals: INTEGER,
   awayTeamGoals: INTEGER,
   inProgress: BOOLEAN,
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'match',
+  modelName: 'Match',
   timestamps: false,
 });
 

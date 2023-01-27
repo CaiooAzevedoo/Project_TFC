@@ -1,5 +1,6 @@
 import * as express from 'express';
-import { teamsController } from './controllers';
+import { teamsController, matchsControllers } from './controllers';
+// import matchsControllers from './controllers/match.controller';
 import userController from './controllers/user.controller';
 import loginMiddleware from './middleware/validateLogin.middleware';
 
@@ -20,7 +21,7 @@ class App {
     this.app.get('/login/validate', userController.validaLogin);
     this.app.get('/teams', teamsController.allTeams);
     this.app.get('/teams/:id', teamsController.teamById);
-    // this.app.get('/matches', matchsControllers.allMatchs);
+    this.app.get('/matches', matchsControllers.allMatchs);
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));

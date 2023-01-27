@@ -1,22 +1,22 @@
-// import { Request, Response } from 'express';
-// import { matchServices } from '../services';
+import { Request, Response } from 'express';
+import { matchServices } from '../services';
 
-// const allMatchs = async (req: Request, res: Response) => {
-//   const { inProgress } = req.query;
+const allMatchs = async (req: Request, res: Response) => {
+  const { inProgress } = req.query;
 
-//   let matchs;
-//   if (!inProgress) {
-//     matchs = await matchServices.allMatchs();
-//   } else {
-//     const inP = inProgress === 'true';
-//     matchs = await matchServices.inProgressMatchs(inP);
-//   }
+  let matchs;
+  if (!inProgress) {
+    matchs = await matchServices.allMatchs();
+  } else {
+    const filter = inProgress === 'true';
+    matchs = await matchServices.inProgressMatchs(filter);
+  }
 
-//   return res.status(200).json(matchs);
-// };
+  return res.status(200).json(matchs);
+};
 
-// const matchsControllers = {
-//   allMatchs,
-// };
+const matchsControllers = {
+  allMatchs,
+};
 
-// export default matchsControllers;
+export default matchsControllers;
