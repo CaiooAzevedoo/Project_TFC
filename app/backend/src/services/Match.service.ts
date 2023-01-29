@@ -1,8 +1,8 @@
 import Team from '../database/models/Teams';
 import Match from '../database/models/Matches';
 
-const allMatchs = async () =>
-  Match.findAll({
+const allMatchs = async () => {
+  const matches = await Match.findAll({
     include: [
       { model: Team,
         as: 'homeTeam',
@@ -12,6 +12,9 @@ const allMatchs = async () =>
         attributes: ['teamName'] },
     ],
   });
+
+  return matches;
+};
 
 const inProgressMatchs = async (inProgress: boolean) => {
   Match.findAll({

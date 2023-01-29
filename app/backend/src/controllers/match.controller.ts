@@ -1,18 +1,18 @@
 import { Request, Response } from 'express';
 import { matchServices } from '../services';
 
-const allMatchs = async (req: Request, res: Response) => {
+const allMatchs = async (req: Request, res: Response): Promise<Response> => {
   const { inProgress } = req.query;
 
-  let matchs;
+  let matches;
   if (!inProgress) {
-    matchs = await matchServices.allMatchs();
+    matches = await matchServices.allMatchs();
   } else {
     const filter = inProgress === 'true';
-    matchs = await matchServices.inProgressMatchs(filter);
+    matches = await matchServices.inProgressMatchs(filter);
   }
 
-  return res.status(200).json(matchs);
+  return res.status(200).json(matches);
 };
 
 const matchsControllers = {
