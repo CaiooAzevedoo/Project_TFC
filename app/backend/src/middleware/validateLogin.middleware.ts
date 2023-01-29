@@ -1,21 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
+import utilsJwt from '../Utils/jwt.util';
 import userService from '../services/User.service';
-// import userController from '../controllers';
-// import utilsJwt from '../Utils/jwt';
-
-// const validaLogin = async (req:Request, res: Response) => {
-//   const authorization = req.header('authorization');
-
-//   const email = utilsJwt.validaToken(authorization as string) as string;
-//   const user = await userService.getUser('email', email);
-
-//   let role = '';
-
-//   if (user) role = user.role;
-
-//   res.status(200).json({ role });
-// };
 
 const validaFields = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
@@ -34,9 +20,17 @@ const validaAcess = async (req: Request, res: Response, next: NextFunction) => {
   return next();
 };
 
+const validaToken = async (req: Request, res: Response, next: NextFunction) => {
+  const authorization = req.header('authorization');
+  const email = utilsJwt.validaToken(authorization as string);
+  if (!email) return res.status(401).json({ message: 'Token must be a valid token' });
+  return next();
+};
+
 const loginMiddleware = {
   validaFields,
   validaAcess,
+  validaToken,
 };
 
 export default loginMiddleware;

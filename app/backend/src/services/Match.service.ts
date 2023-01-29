@@ -31,9 +31,27 @@ const inProgressMatchs = async (inProgress: boolean) => {
   return matches;
 };
 
+const addNewMatch = async (
+  homeTeamId: number,
+  awayTeamId: number,
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+) => {
+  const match = await Match.create({
+    homeTeamId,
+    awayTeamId,
+    homeTeamGoals,
+    awayTeamGoals,
+    inProgress: true,
+  });
+
+  return match;
+};
+
 const matchServices = {
   allMatchs,
   inProgressMatchs,
+  addNewMatch,
 };
 
 export default matchServices;

@@ -8,8 +8,12 @@ const SECRET = process.env.JWT_SECRET;
 const generateToken = (email: string) => jwt.sign(email, SECRET as string);
 
 const validaToken = (token: string) => {
-  const userToken = jwt.verify(token, process.env.JWT_SECRET as string) as string;
-  return userToken;
+  try {
+    const userToken = jwt.verify(token, process.env.JWT_SECRET as string) as string;
+    return userToken;
+  } catch (err) {
+    return { email: 'ERROR' };
+  }
 };
 
 const utilsJwt = {

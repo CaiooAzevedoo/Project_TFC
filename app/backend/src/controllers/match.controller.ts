@@ -15,8 +15,31 @@ const allMatchs = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json(matches);
 };
 
+const addNewMatch = async (req: Request, res: Response): Promise<Response> => {
+  const { homeTeamId,
+    awayTeamId,
+    homeTeamGoals,
+    awayTeamGoals } = req.body;
+
+  if (homeTeamId === awayTeamId) {
+    return res.status(422)
+      .json({ message: 'It is not possible to create a match with two equal teams' });
+  }
+
+  const match = await matchServices.addNewMatch(
+    homeTeamId,
+    awayTeamId,
+    homeTeamGoals,
+    awayTeamGoals,
+  );
+
+  if (!match) res.status(500).json({ message: 'deu ruim' });
+  return res.status(201).json(match);
+};
+
 const matchsControllers = {
   allMatchs,
+  addNewMatch,
 };
 
 export default matchsControllers;

@@ -22,6 +22,7 @@ class App {
     this.app.get('/teams', teamsController.allTeams);
     this.app.get('/teams/:id', teamsController.teamById);
     this.app.get('/matches', matchsControllers.allMatchs);
+    this.app.post('/matches', loginMiddleware.validaToken, matchsControllers.addNewMatch);
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));

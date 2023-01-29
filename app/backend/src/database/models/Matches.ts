@@ -3,6 +3,7 @@ import db from '.';
 import Team from './Teams';
 
 class Match extends Model {
+  declare id: number;
   declare homeTeamId: number;
   declare homeTeamGoals: number;
   declare awayTeamId: number;
@@ -11,11 +12,19 @@ class Match extends Model {
 }
 
 Match.init({
+  id: {
+    type: INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true,
+  },
   homeTeamId: INTEGER,
   homeTeamGoals: INTEGER,
   awayTeamId: INTEGER,
   awayTeamGoals: INTEGER,
-  inProgress: BOOLEAN,
+  inProgress: {
+    type: BOOLEAN,
+  },
 }, {
   underscored: true,
   sequelize: db,

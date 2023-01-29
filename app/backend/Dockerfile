@@ -4,8 +4,8 @@ WORKDIR /app-backend
 
 COPY . .
 
-RUN npm install
-
 EXPOSE 3001
+
+RUN npm install
 
 ENTRYPOINT ["npm", "run", "dev"]

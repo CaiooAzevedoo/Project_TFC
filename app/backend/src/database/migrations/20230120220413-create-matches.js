@@ -10,22 +10,22 @@ module.exports = {
       },
       home_team_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         foreignKey: true,
-        references: {
-          model: 'teams',
-          key: 'id'
-        }
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+
       },
       home_team_goals: {
         type: Sequelize.INTEGER
       },
       away_team_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         foreignKey: true,
-        references: {
-          model: 'teams',
-          key: 'id'
-        }
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+
       },
       away_team_goals: {
         type: Sequelize.INTEGER
