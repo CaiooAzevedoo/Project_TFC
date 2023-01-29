@@ -17,17 +17,18 @@ const allMatchs = async () => {
 };
 
 const inProgressMatchs = async (inProgress: boolean) => {
-  Match.findAll({
+  const matches = await Match.findAll({
     where: { inProgress },
     include: [
       { model: Team,
-        as: 'teamHome',
+        as: 'homeTeam',
         attributes: ['teamName'] },
       { model: Team,
-        as: 'teamAway',
+        as: 'awayTeam',
         attributes: ['teamName'] },
     ],
   });
+  return matches;
 };
 
 const matchServices = {
