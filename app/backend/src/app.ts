@@ -1,8 +1,8 @@
 import * as express from 'express';
-import { teamsController, matchsControllers } from './controllers';
-// import matchsControllers from './controllers/match.controller';
-import userController from './controllers/user.controller';
-import loginMiddleware from './middleware/validateLogin.middleware';
+
+import userRouter from './Routes/user.route';
+import teamRouter from './Routes/team.route';
+import matchRouter from './Routes/match.route';
 
 class App {
   public app: express.Express;
@@ -12,20 +12,11 @@ class App {
 
     this.config();
 
-    this.app.post(
-      '/login',
-      loginMiddleware.validaFields,
-      loginMiddleware.validaAcess,
-      userController.loginIn,
-    );
-    this.app.get('/login/validate', userController.validaLogin);
-    this.app.get('/teams', teamsController.allTeams);
-    this.app.get('/teams/:id', teamsController.teamById);
-    this.app.get('/matches', matchsControllers.allMatchs);
-    this.app.post('/matches', loginMiddleware.validaToken, matchsControllers.addNewMatch);
-
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.app.use('/login', userRouter);
+    this.app.use('/teams', teamRouter);
+    this.app.use('/matches', matchRouter);
   }
 
   private config():void {
