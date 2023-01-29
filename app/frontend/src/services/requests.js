@@ -10,8 +10,11 @@ export const setToken = (token) => {
 
 export const requestData = async (endpoint) => {
   const { data } = await api.get(endpoint);
+  console.log(data, 'TA AQUI')
   return data;
 };
+
+
 
 export const requestLogin = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);

@@ -4,7 +4,6 @@ import { matchServices } from '../services';
 const allMatchs = async (req: Request, res: Response) => {
   const { inProgress } = req.query;
 
-  // const matchs = await matchServices.allMatchs();
   let matchs;
   if (!inProgress) {
     matchs = await matchServices.allMatchs();
