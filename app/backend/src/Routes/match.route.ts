@@ -12,5 +12,6 @@ router.post(
   loginMiddleware.validaToken,
   matchsControllers.addNewMatch,
 );
+router.patch('/:id/finish', matchsControllers.endMatch);
 
 export default router;

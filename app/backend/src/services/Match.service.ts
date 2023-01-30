@@ -48,10 +48,17 @@ const addNewMatch = async (
   return match;
 };
 
+const endMatch = async (id: number) =>
+  Match.update(
+    { inProfress: false },
+    { where: { id } },
+  );
+
 const matchServices = {
   allMatchs,
   inProgressMatchs,
   addNewMatch,
+  endMatch,
 };
 
 export default matchServices;

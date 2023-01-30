@@ -28,13 +28,20 @@ const addNewMatch = async (req: Request, res: Response): Promise<Response> => {
     awayTeamGoals,
   );
 
-  if (!match) res.status(500).json({ message: 'deu ruim' });
   return res.status(201).json(match);
+};
+
+const endMatch = async (req: Request, res: Response): Promise<Response> => {
+  const { id } = req.params;
+  await matchServices.endMatch(Number(id));
+
+  return res.status(200).json({ message: 'Finished' });
 };
 
 const matchsControllers = {
   allMatchs,
   addNewMatch,
+  endMatch,
 };
 
 export default matchsControllers;
