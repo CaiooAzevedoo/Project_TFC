@@ -1,4 +1,6 @@
 import loginMiddleware from './validateLogin.middleware';
+import matchMiddle from './validateMatch.middleware';
 
-export default {
-  loginMiddleware };
+export {
+  loginMiddleware,
+  matchMiddle };

@@ -21,11 +21,6 @@ const addNewMatch = async (req: Request, res: Response): Promise<Response> => {
     homeTeamGoals,
     awayTeamGoals } = req.body;
 
-  if (homeTeamId === awayTeamId) {
-    return res.status(422)
-      .json({ message: 'It is not possible to create a match with two equal teams' });
-  }
-
   const match = await matchServices.addNewMatch(
     homeTeamId,
     awayTeamId,
