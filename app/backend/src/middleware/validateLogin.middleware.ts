@@ -22,8 +22,12 @@ const validaAcess = async (req: Request, res: Response, next: NextFunction) => {
 
 const validaToken = async (req: Request, res: Response, next: NextFunction) => {
   const authorization = req.header('authorization');
+
   const email = utilsJwt.validaToken(authorization as string) as string;
-  if (!email) return res.status(401).json({ message: 'Token must be a valid token' });
+
+  if (!email) {
+    return res.status(401).json({ message: 'Token must be a valid token' });
+  }
   return next();
 };
 

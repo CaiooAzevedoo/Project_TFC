@@ -12,7 +12,7 @@ const validaToken = (token: string) => {
     const userToken = jwt.verify(token, process.env.JWT_SECRET as string) as string;
     return userToken;
   } catch (err) {
-    return { email: 'ERROR' };
+    return '';
   }
 };
 
