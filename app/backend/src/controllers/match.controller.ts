@@ -38,10 +38,23 @@ const endMatch = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json({ message: 'Finished' });
 };
 
+const upMatch = async (req: Request, res: Response): Promise<Response> => {
+  const { id } = req.params;
+  const { homeTeamGoals, awayTeamGoals } = req.body;
+
+  await matchServices.upMatch(
+    Number(id),
+    homeTeamGoals,
+    awayTeamGoals,
+  );
+  return res.status(200).json({ message: 'Updated' });
+};
+
 const matchsControllers = {
   allMatchs,
   addNewMatch,
   endMatch,
+  upMatch,
 };
 
 export default matchsControllers;

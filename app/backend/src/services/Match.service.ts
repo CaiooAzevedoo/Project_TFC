@@ -55,11 +55,25 @@ const endMatch = async (id: number) => {
   );
 };
 
+const upMatch = async (
+  id: number,
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+) => {
+  await Match.update(
+    {
+      homeTeamGoals, awayTeamGoals,
+    },
+    { where: { id } },
+  );
+};
+
 const matchServices = {
   allMatchs,
   inProgressMatchs,
   addNewMatch,
   endMatch,
+  upMatch,
 };
 
 export default matchServices;
