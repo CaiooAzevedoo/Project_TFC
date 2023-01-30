@@ -48,11 +48,12 @@ const addNewMatch = async (
   return match;
 };
 
-const endMatch = async (id: number) =>
-  Match.update(
-    { inProfress: false },
+const endMatch = async (id: number) => {
+  await Match.update(
+    { inProgress: false },
     { where: { id } },
   );
+};
 
 const matchServices = {
   allMatchs,
