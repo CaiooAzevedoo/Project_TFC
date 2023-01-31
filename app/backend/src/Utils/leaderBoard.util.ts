@@ -25,4 +25,18 @@ const matchResults = (matches: Match[], home: boolean) => {
   return { victories, draws, losses };
 };
 
-export default matchResults;
+const matchGoals = (matches: Match[], home: boolean) => {
+  const homeAway = home ? 'homeTeamGoals' : 'awayTeamGoals';
+  const awayHome = home ? 'awayTeamGoals' : 'homeTeamGoals';
+  const goalsScored = matches.reduce((total, match) => total + match[homeAway], 0);
+  const goalsConceded = matches.reduce((total, match) => total + match[awayHome], 0);
+  const goalsBalance = goalsScored - goalsConceded;
+
+  return { goalsScored, goalsConceded, goalsBalance };
+};
+
+const leaderBoard = {
+  matchResults,
+  matchGoals,
+};
+export default leaderBoard;
