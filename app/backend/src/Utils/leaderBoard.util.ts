@@ -4,52 +4,53 @@ import Match from '../database/models/Matches';
 const matchResults = (matches: Match[], home: boolean) => {
   const homeAway = home ? 'homeTeamGoals' : 'awayTeamGoals';
   const awayHome = home ? 'awayTeamGoals' : 'homeTeamGoals';
-  const victories = matches.reduce((victorie, match) => {
+  const totalVictories = matches.reduce((victorie, match) => {
     if (match[homeAway] > match[awayHome]) {
       return victorie + 1;
     }
     return victorie;
   }, 0);
 
-  const draws = matches.reduce((draw, match) => {
+  const totalDraws = matches.reduce((draw, match) => {
     if (match[homeAway] === match[awayHome]) { return draw + 1; }
 
     return draw;
   }, 0);
 
-  const losses = matches.reduce((loss, match) => {
+  const totalLosses = matches.reduce((loss, match) => {
     if (match[homeAway] < match[awayHome]) { return loss + 1; }
 
     return loss;
   }, 0);
 
-  return { victories, draws, losses };
+  return { totalVictories, totalDraws, totalLosses };
 };
 
 const matchGoals = (matches: Match[], home: boolean) => {
   const homeAway = home ? 'homeTeamGoals' : 'awayTeamGoals';
   const awayHome = home ? 'awayTeamGoals' : 'homeTeamGoals';
-  const goalsScored = matches.reduce((total, match) => total + match[homeAway], 0);
-  const goalsConceded = matches.reduce((total, match) => total + match[awayHome], 0);
-  const goalsBalance = goalsScored - goalsConceded;
+  const goalsFavor = matches.reduce((total, match) => total + match[homeAway], 0);
+  const goalsOwn = matches.reduce((total, match) => total + match[awayHome], 0);
+  const goalsBalance = goalsFavor - goalsOwn;
 
-  return { goalsScored, goalsConceded, goalsBalance };
+  return { goalsFavor, goalsOwn, goalsBalance };
 };
 
 const board = (teams: Team[], matchsFinished: Match[], home: boolean) => {
   teams.map(({ id, teamName }) => {
     const homeAway = home ? 'homeTeamId' : 'awayTeamId';
     const matches = matchsFinished.filter((match) => match[homeAway] === id);
-    const { victories, draws, losses } = matchResults(matches, home);
-    const { goalsScored, goalsConceded, goalsBalance } = matchGoals(matches, home);
+    const { totalVictories, totalDraws, totalLosses } = matchResults(matches, home);
+    const { goalsFavor, goalsOwn, goalsBalance } = matchGoals(matches, home);
 
-    const points = victories * 3 + draws;
-    const games = matches.length;
-    const exploitation = ((points / (games * 3)) * 100);
+    const totalPoints = totalVictories * 3 + totalDraws;
+    const totalGames = matches.length;
+    const efficiency = ((totalPoints / (totalGames * 3)) * 100);
 
-    const teamInfo = { name: teamName, points, games, victories, draws, losses };
-    const teamInfo2 = { goalsScored, goalsConceded, goalsBalance, exploitation };
-    const boardInfo = { ...teamInfo, ...teamInfo2 };
+    const teamInfo = { name: teamName, totalPoints, totalGames };
+    const teamInfo1 = { totalVictories, totalDraws, totalLosses };
+    const teamInfo2 = { goalsFavor, goalsOwn, goalsBalance, efficiency };
+    const boardInfo = { ...teamInfo, ...teamInfo1, ...teamInfo2 };
     console.log(boardInfo);
 
     return boardInfo;
