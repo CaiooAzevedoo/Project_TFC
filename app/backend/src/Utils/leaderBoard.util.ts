@@ -1,3 +1,4 @@
+import Team from '../database/models/Teams';
 import Match from '../database/models/Matches';
 
 const matchResults = (matches: Match[], home: boolean) => {
@@ -35,8 +36,27 @@ const matchGoals = (matches: Match[], home: boolean) => {
   return { goalsScored, goalsConceded, goalsBalance };
 };
 
+const board = (teams: Team[], matchsFinished: Match[], home: boolean) => {
+  teams.map(({ id, teamName }) => {
+    const homeAway = home ? 'homeTeamId' : 'awayTeamId';
+    const matches = matchsFinished.filter((match) => match[homeAway] === id);
+    const { victories, draws, losses } = matchResults(matches, home);
+    const { goalsScored, goalsConceded, goalsBalance } = matchGoals(matches, home);
+
+    const points = victories * 3 + draws;
+    const games = matches.length;
+    const exploitation = ((points / (games * 3)) * 100);
+
+    const teamInfo = { name: teamName, points, games, victories, draws, losses };
+    const teamInfo2 = { goalsScored, goalsConceded, goalsBalance, exploitation };
+    const boardInfo = { ...teamInfo, ...teamInfo2 };
+    console.log(boardInfo);
+
+    return boardInfo;
+  });
+};
+
 const leaderBoard = {
-  matchResults,
-  matchGoals,
+  board,
 };
 export default leaderBoard;
