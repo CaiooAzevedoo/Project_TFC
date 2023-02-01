@@ -44,7 +44,7 @@ const geraQuadro = (teams: Team[], matchsFinished: Match[], home: boolean) =>
 
     const totalPoints = totalVictories * 3 + totalDraws;
     const totalGames = matches.length;
-    const efficiency = ((totalPoints / (totalGames * 3)) * 100);
+    const efficiency = ((totalPoints / (totalGames * 3)) * 100).toFixed(2);
 
     const teamInfo = { name: teamName, totalPoints, totalGames, totalVictories, totalDraws };
     const teamInfo2 = { totalLosses, goalsFavor, goalsOwn, goalsBalance, efficiency };
