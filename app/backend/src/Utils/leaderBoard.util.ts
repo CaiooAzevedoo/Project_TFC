@@ -35,7 +35,7 @@ const matchGoals = (matches: Match[], home: boolean) => {
   return { goalsFavor, goalsOwn, goalsBalance };
 };
 
-const geraQuadro = (teams: Team[], matchsFinished: Match[], home: boolean) => {
+const geraQuadro = (teams: Team[], matchsFinished: Match[], home: boolean) =>
   teams.map(({ id, teamName }) => {
     const homeAway = home ? 'homeTeamId' : 'awayTeamId';
     const matches = matchsFinished.filter((match) => match[homeAway] === id);
@@ -44,16 +44,15 @@ const geraQuadro = (teams: Team[], matchsFinished: Match[], home: boolean) => {
 
     const totalPoints = totalVictories * 3 + totalDraws;
     const totalGames = matches.length;
-    const efficiency = ((totalPoints / (totalGames * 3)) * 100).toFixed(2);
+    const efficiency = ((totalPoints / (totalGames * 3)) * 100);
 
     const teamInfo = { name: teamName, totalPoints, totalGames, totalVictories, totalDraws };
     const teamInfo2 = { totalLosses, goalsFavor, goalsOwn, goalsBalance, efficiency };
 
     return { ...teamInfo, ...teamInfo2 };
   });
-};
 
-// const leaderBoard = {
-//   geraQuadro,
-// };
-export default geraQuadro;
+const leaderBoard = {
+  geraQuadro,
+};
+export default leaderBoard;

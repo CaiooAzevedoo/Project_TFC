@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { boardService } from '../services';
 
 const getHomeBoard = async (_req: Request, res: Response) => {
-  const board = await boardService.generateBoard();
+  const board = await boardService.generateBoard(true);
 
   return res.status(200).json(board);
 };
