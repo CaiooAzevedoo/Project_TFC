@@ -1,15 +1,22 @@
-// import geraQuadro from '../Utils/leaderBoard.util';
-// import Team from '../database/models/Teams';
 import { leaderBoard } from '../Utils';
 import matchServices from './Match.service';
 import teamService from './Team.service';
 
 const generateBoard = async (homeAway: boolean) => {
+  // Coleta a lista de todos os times
   const teams = await teamService.allTeams();
-  console.log(teams);
+
+  // Coleta a lista de todas as partias finalizadas
   const matchsFinished = await matchServices.inProgressMatchs(false);
 
+  // Insere os dados na tabela
   const board = leaderBoard.geraQuadro(teams, matchsFinished, homeAway);
+
+  // Retorna os dados com as seguintes regras:
+  // - Maior número de pontos
+  // - Maior número de vitórias
+  // - Maior saldo de gols
+  // - Maior saldo de gols marcados
 
   return board.sort((a, b) => {
     if (b.totalPoints - a.totalPoints !== 0) {
@@ -24,13 +31,6 @@ const generateBoard = async (homeAway: boolean) => {
     return b.goalsFavor - a.goalsFavor;
   });
 };
-
-// const generateBoard = async () => Team.findAll();
-// const generateBoard = async (homeAway: boolean) => {
-//   const matchsFinished = await matchServices.inProgressMatchs(homeAway);
-
-//   return matchsFinished;
-// };
 
 const boardService = {
   generateBoard,
